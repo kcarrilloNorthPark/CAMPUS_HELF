@@ -17,6 +17,12 @@
 <body>
     <!-- NAVIGATION -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <img 
+            src="img/mango-mangosity.gif"
+            class="img-fluid rounded shadow mb-4" 
+            alt="Campus Life Animation"
+            style="max-height: 50px;"
+        >
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">Camp-helf</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -37,7 +43,7 @@
     <!-- PAGE HEADER -->
     <header class="container text-center my-4">
         <h1>Campus Map</h1>
-        <p class="lead">Navigate campus with an interactive map. Building markers powered by OpenStreetMap.</p>
+        <p class="lead">Navigate campus with an interactive map. Click events to highlight their location!</p>
     </header>
 
     <!-- MAP CONTAINER -->
@@ -48,6 +54,14 @@
 
             <!-- Map Box -->
             <div id="campusMap" style="height: 500px; width: 100%;"></div>
+        </div>
+    </section>
+
+    <!-- EVENTS LIST -->
+    <section class="container mb-5">
+        <h4 class="mb-3">Campus Events</h4>
+        <div id="eventList" class="list-group">
+            <!-- Event buttons inserted here by JS -->
         </div>
     </section>
 
@@ -65,15 +79,15 @@
     <!-- Custom JS -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const map = L.map('campusMap').setView([41.8781, -87.6298], 15); // Sample campus coordinates
+            const map = L.map('campusMap').setView([41.8781, -87.6298], 15);
 
-            // Add OpenStreetMap tiles
+            // OpenStreetMap tiles
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
                 maxZoom: 19
             }).addTo(map);
 
-            // Sample building markers
+            // Buildings
             const buildings = [
                 {name: 'Main Library', coords: [41.8785, -87.6298]},
                 {name: 'Student Center', coords: [41.8780, -87.6285]},
@@ -81,10 +95,46 @@
                 {name: 'Engineering Building', coords: [41.8790, -87.6290]}
             ];
 
+            // Static events
+            const events = [
+                { name: "Book Club Meeting", description: "Discuss the latest novels.", location: "Main Library" },
+                { name: "Coding Workshop", description: "Python for beginners.", location: "Engineering Building" },
+                { name: "Campus Concert", description: "Live music by student bands.", location: "Student Center" },
+                { name: "Food Festival", description: "Sample dishes from around the world.", location: "Dining Hall" },
+                { name: "Art Exhibition", description: "Student art showcase.", location: "Student Center" },
+                { name: "Science Talk", description: "Guest lecture on climate change.", location: "Engineering Building" }
+            ];
+
+            // Map markers
+            const markers = {};
             buildings.forEach(b => {
-                L.marker(b.coords).addTo(map).bindPopup(`<b>${b.name}</b>`);
+                const eventsHere = events.filter(ev => ev.location === b.name);
+                let popupContent = `<b>${b.name}</b>`;
+                if (eventsHere.length) {
+                    popupContent += "<ul>";
+                    eventsHere.forEach(ev => { popupContent += `<li>${ev.name}</li>`; });
+                    popupContent += "</ul>";
+                }
+                markers[b.name] = L.marker(b.coords).addTo(map).bindPopup(popupContent);
+            });
+
+            // Generate event list buttons
+            const eventList = document.getElementById("eventList");
+            events.forEach(ev => {
+                const btn = document.createElement("button");
+                btn.className = "list-group-item list-group-item-action";
+                btn.innerText = `${ev.name} (${ev.location})`;
+                btn.addEventListener("click", () => {
+                    const marker = markers[ev.location];
+                    if (marker) {
+                        map.setView(marker.getLatLng(), 17);
+                        marker.openPopup();
+                    }
+                });
+                eventList.appendChild(btn);
             });
         });
     </script>
 </body>
 </html>
+
