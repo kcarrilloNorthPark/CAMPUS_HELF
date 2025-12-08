@@ -1,24 +1,25 @@
-/* Camp-helf Super App Global Styles */
+/* Camp-helf Super App Global Styles - Mango Gradient Theme */
 
 /* Reset & Base Styles */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f7fa;
+  background-color: #fff8e7; /* soft mango cream */
   margin: 0;
   padding: 0;
   color: #333;
 }
 
 header {
-  background: #004aad;
+  background: linear-gradient(90deg, #ffb74d, #ffa726); /* mango gradient */
   color: white;
   padding: 1rem;
   text-align: center;
+  border-bottom: 4px solid #ff9800; /* darker accent */
 }
 
 /* Navigation */
 nav {
-  background: #00337a;
+  background: linear-gradient(90deg, #ffa726, #ffb74d); /* mango gradient */
   padding: 0.75rem;
 }
 
@@ -27,9 +28,11 @@ nav a {
   margin: 0 10px;
   text-decoration: none;
   font-weight: 600;
+  transition: color 0.3s;
 }
 
 nav a:hover {
+  color: #fff59d; /* soft mango yellow */
   text-decoration: underline;
 }
 
@@ -43,11 +46,35 @@ nav a:hover {
 
 /* Cards */
 .card-custom {
-  background: white;
+  background: linear-gradient(180deg, #fff3e0, #ffe0b2); /* subtle mango gradient */
   border-radius: 10px;
   padding: 1.2rem;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   margin-bottom: 1.5rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card-custom:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* Buttons */
+.save-btn {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(90deg, #ff9800, #ffc107); /* mango gradient button */
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.save-btn:hover {
+  background: linear-gradient(90deg, #ffc107, #ffd54f);
 }
 
 /* Profile Page */
@@ -62,37 +89,28 @@ nav a:hover {
   height: 130px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #004aad;
+  border: 4px solid #ffa726;
   margin-bottom: 1rem;
 }
 
-.profile-info input {
+.profile-info input, .profile-info textarea {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
   border-radius: 6px;
-  border: 1px solid #bbb;
+  border: 1px solid #ffb74d;
+  background: #fff3e0;
+  transition: border-color 0.3s;
 }
 
-.save-btn {
-  width: 100%;
-  padding: 10px;
-  background: #004aad;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  margin-top: 15px;
-  cursor: pointer;
-}
-
-.save-btn:hover {
-  background: #00337a;
+.profile-info input:focus, .profile-info textarea:focus {
+  border-color: #ff9800;
+  outline: none;
 }
 
 /* Footer */
 footer {
-  background: #004aad;
+  background: linear-gradient(90deg, #ff9800, #ffb74d); /* mango gradient footer */
   color: white;
   text-align: center;
   padding: 1rem;
