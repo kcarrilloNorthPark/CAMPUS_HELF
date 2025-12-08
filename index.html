@@ -15,11 +15,14 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="logo.png" alt="Camp-helf Logo" width="40" height="40" class="me-2" />
+                <!-- LOGO PLACEHOLDER (GIF READY) -->
+                <img src="img/mango-mangosity.gif" 
+                     alt="Camp-helf Logo" width="40" height="40" class="me-2 rounded" />
                 <strong>Camp-helf</strong>
             </a>
             <button
@@ -42,20 +45,33 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION WITH GIF -->
     <header class="container text-center my-5">
+        <img 
+            src="img/mango-mangosity.gif"
+            class="img-fluid rounded shadow mb-4" 
+            alt="Campus Life Animation"
+            style="max-height: 300px;"
+        >
+
         <h1>Welcome to Camp-helf</h1>
-        <p class="lead">Your all‑in‑one campus life assistant.</p>
+        <p class="lead">Your all-in-one campus life assistant.</p>
         <p>Find events, explore dining options, navigate campus, and manage your student profile.</p>
     </header>
 
-    <!-- FEATURE GRID -->
+    <!-- FEATURE GRID WITH GIF CARDS -->
     <div class="container my-4">
         <div class="row g-4">
+
             <!-- Events Card -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body text-center">
+                <div class="card h-100 shadow-sm text-center">
+                    <img 
+                        src="img/first_year_college_student-involvement.gif" 
+                        class="card-img-top" 
+                        alt="Events feature image"
+                    >
+                    <div class="card-body">
                         <h4 class="card-title">Campus Events</h4>
                         <p>Stay updated with all campus happenings using our event API feed.</p>
                         <a href="events.html" class="btn btn-primary">View Events</a>
@@ -65,8 +81,13 @@
 
             <!-- Dining Card -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body text-center">
+                <div class="card h-100 shadow-sm text-center">
+                    <img 
+                        src="img/download.gif" 
+                        class="card-img-top" 
+                        alt="Dining feature image"
+                    >
+                    <div class="card-body">
                         <h4 class="card-title">Dining Options</h4>
                         <p>Check menus, opening times, and more powered by live data.</p>
                         <a href="food.html" class="btn btn-primary">Dining Tools</a>
@@ -76,14 +97,20 @@
 
             <!-- Map Card -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body text-center">
+                <div class="card h-100 shadow-sm text-center">
+                    <img 
+                        src="img/Bootgum-MapandTrackWatermarked550.gif" 
+                        class="card-img-top" 
+                        alt="Map feature image"
+                    >
+                    <div class="card-body">
                         <h4 class="card-title">Campus Map</h4>
                         <p>Find buildings, study spots, dining halls, and more.</p>
                         <a href="map.html" class="btn btn-primary">Open Map</a>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -97,6 +124,7 @@
 
     <!-- Custom JS -->
     <script src="app.js"></script>
+
 </body>
 </html>
 
