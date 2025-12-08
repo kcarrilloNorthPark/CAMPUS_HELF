@@ -15,17 +15,21 @@ async function loadEvents() {
         const response = await fetch("https://api.sampleapis.com/futurama/episodes");
         const data = await response.json();
 
-        const events = data.slice(0, 6);
+        const events = data.slice(0, 6); // Take first 6 events
         eventContainer.innerHTML = "";
 
         events.forEach(event => {
             const card = document.createElement("div");
-            card.className = "col-md-4";
+            card.className = "col-md-4 mb-4";
             card.innerHTML = `
-                <div class="card card-custom">
-                    <h5 class="card-title">${event.title}</h5>
-                    <p class="card-text">${event.desc || 'No description available.'}</p>
-                    <button class="save-btn">Add to Calendar</button>
+                <div class="card card-custom shadow-sm text-center">
+                    <img src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif" 
+                         class="card-img-top" alt="Event Image">
+                    <div class="card-body">
+                        <h5 class="card-title">${event.title}</h5>
+                        <p class="card-text">${event.desc || 'No description available.'}</p>
+                        <button class="btn btn-primary save-btn">Add to Calendar</button>
+                    </div>
                 </div>
             `;
             eventContainer.appendChild(card);
@@ -33,6 +37,45 @@ async function loadEvents() {
     } catch (error) {
         console.error("Events API error:", error);
     }
+}
+
+//---------------------------------------------
+// RANDOM CAMPUS EVENTS
+//---------------------------------------------
+const randomEvents = [
+    { title: "Free Pizza Night", location: "Student Center", time: "6:00 PM" },
+    { title: "Coding Workshop", location: "Computer Lab", time: "4:30 PM" },
+    { title: "Campus Movie Night", location: "Main Quad", time: "8:00 PM" },
+    { title: "Basketball Game", location: "Gymnasium", time: "7:00 PM" },
+    { title: "Music Open Mic", location: "Cafe Lounge", time: "5:00 PM" },
+    { title: "Career Fair", location: "Conference Hall", time: "1:00 PM" }
+];
+
+function generateRandomEvents() {
+    const container = document.getElementById("eventsContainer");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    randomEvents.forEach(event => {
+        const eventCard = `
+            <div class="col-md-4 mb-4">
+                <div class="card card-custom shadow-sm text-center">
+                    <img 
+                        src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif" 
+                        class="card-img-top"
+                        alt="Random Event Image"
+                    >
+                    <div class="card-body">
+                        <h5 class="card-title">${event.title}</h5>
+                        <p class="card-text">📍 ${event.location}</p>
+                        <p class="card-text">⏰ ${event.time}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += eventCard;
+    });
 }
 
 //---------------------------------------------
@@ -53,9 +96,9 @@ function loadMenu() {
     for (const category in menuItems) {
         menuItems[category].forEach(item => {
             const card = document.createElement('div');
-            card.className = 'col-md-4';
+            card.className = 'col-md-4 mb-4';
             card.innerHTML = `
-                <div class='card card-custom'>
+                <div class='card card-custom shadow-sm text-center'>
                     <h5 class='card-title'>${item}</h5>
                     <p class='card-text'>Category: ${category}</p>
                 </div>
@@ -108,8 +151,12 @@ function saveProfile() {
     };
 
     localStorage.setItem("camphelfProfile", JSON.stringify(profile));
+
     const message = document.getElementById("profileMessage");
-    if (message) message.style.display = 'block';
+    if (message) {
+        message.style.display = "block";
+        setTimeout(() => { message.style.display = "none"; }, 3000);
+    }
 }
 
 function loadProfile() {
@@ -130,11 +177,19 @@ function loadProfile() {
 // INITIALIZE PAGE ON LOAD
 //---------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
-    loadEvents();
-    loadMenu();
-    initMap();
-    loadProfile();
+    loadEvents();   // API events
+    generateRandomEvents(); // Static events
+    loadMenu();     // Dining menu
+    initMap();      // Leaflet map
+    loadProfile();  // Load saved profile info
 
+    // Random Events Button (if any)
+    const eventBtn = document.getElementById("randomEventBtn");
+    if (eventBtn) {
+        eventBtn.addEventListener("click", generateRandomEvents);
+    }
+
+    // Profile Save Button
     const saveBtn = document.getElementById("saveProfile");
     if (saveBtn) saveBtn.addEventListener("click", saveProfile);
 
